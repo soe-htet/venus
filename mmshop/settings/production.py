@@ -39,7 +39,7 @@ try:
 except:
     pass
 
-SITE_URL = "https://venusmm.herokuapp.com"
+SITE_URL = "https://immense-brushlands-15195.herokuapp.com"
 
 
 
