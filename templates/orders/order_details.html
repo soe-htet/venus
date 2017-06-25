@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block context %}
+
+{% if empty %}
+
+<h3>{{ message }}</h3>
+
+{% else %}
+
+<div class="row">
+<div class="col-sm-8 col-sm-offset-2">
+<table class="table">
+<tr><th>Item Name</th><th>Price</th><th>Quantity</th><th></th></tr>
+{% for item in order.cart.cartitem_set.all %}
+
+<tr>
+<td>{{ item.product.title }} {% if item.variations %} <ul>{% for var in item.variations.all %}<li>{{ var.title }}</li> {% endfor %}</ul>{% endif %}</td>
+<td>{{ item.product.price }}</td>
+<!-- <td><a href="#" id="changeQty"><p id='qty'>{{ item.quantity }} </p></p></td> -->
+<td>{{ item.quantity }}</td>
+<td>{{ item.notes }}</td>
+
+</tr>
+
+{% endfor %}
+<tr><td></td><td>Sub total:{{ order.cart.total }}</td><td></td><td></td></tr>
+
+</table>
+</div>
+</div>
+
+{% endif %}
+{% endblock %}

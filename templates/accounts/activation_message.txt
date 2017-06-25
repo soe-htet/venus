@@ -1,0 +1,11 @@
+Hello {{ user }},
+
+Thanks For your registering Venus Online.
+
+Please activate your account here:
+
+{{ activation_url }}
+
+Thank you!
+
+-Venus

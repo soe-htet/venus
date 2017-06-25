@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block  script %}
+
+<script>
+	$(document).ready(function(){
+		console.log('working');
+
+	function myFunction() {
+    var txt;
+    var person = prompt("Please enter your name:", "Harry Potter");
+    if (person == null || person == "") {
+        txt = "User cancelled the prompt.";
+    } else {
+        txt = person;
+    }
+    $("#qty").text(txt);
+}
+
+	$("#changeQty").click(function(event){
+		event.preventDefault();
+		myFunction();
+
+	})
+
+	});
+</script>
+
+{% endblock script %}
+{% block context %}
+
+{% if empty %}
+
+<h3>{{ message }}</h3>
+
+{% else %}
+
+<div class="row">
+<div class="col-sm-8 col-sm-offset-2">
+<table class="table">
+<tr><th>Item Name</th><th>Price</th><th>Quantity</th><th></th><th></th></tr>
+{% for item in cart.cartitem_set.all %}
+
+<tr>
+<td>{{ item.product.title }} {% if item.variations %} <ul>{% for var in item.variations.all %}<li>{{ var.title }}</li> {% endfor %}</ul>{% endif %}</td>
+<td>{{ item.product.price }}</td>
+<!-- <td><a href="#" id="changeQty"><p id='qty'>{{ item.quantity }} </p></p></td> -->
+<td>{{ item.quantity }}</td>
+<td>{{ item.notes }}</td>
+<td><a href="{% url 'remove_cart' item.id  %}">Remove</a></td>
+</tr>
+
+{% endfor %}
+<tr><td></td><td>Sub total:{{ cart.total }}</td><td></td><td></td></tr>
+</table>
+</div>
+</div>
+{% if cart.cartitem_set.all %}
+<div class="row">
+	<div class="col-sm-8"></div>
+	<div class="col-sm-4">
+	<a href="{% url 'checkout' %}" class="btn btn-primary" role='button'> Place Order </a>
+	</div>
+</div>
+{% endif %}
+
+{% endif %}
+{% endblock %}

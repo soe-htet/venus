@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block context %}
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+	<div class="container">
+		<form class="form-horizontal" method="POST" action="">
+			{% csrf_token %}
+			{{ form.as_p }}  
+			<div class="col-sm-3"><input type="submit" value="{{submit_btn}}" class="btn btn-default"></div>
+		</form>
+		{% if btn_register %}
+			<div class="col-sm-3"><a href="{% url 'auth_register' %}" class="btn btn-default" role='button'>{{btn_register}}</a></div>
+			{% endif %}
+	</div>
+</div>
+</div>
+{% endblock %}

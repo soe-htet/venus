@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block context %}
+	<div class="row">
+	<dir class="col-md-1">
+  	</dir>
+	<div class="col-md-4">
+	    <div class="thumbnail">
+	    
+		{% for img in product.productimage_set.all %}
+			<div>
+	  			<img class="no-resize" src="{{ MEDIA_URL }}{{ img.image }}" width="300" height="300">
+			</div>
+		{% endfor %}
+	     <hr>
+		    <!-- <div class="caption">
+		        <h3> {{ product.title }}</h3>
+		        <h4> {{ product.sale_price }}</h4>
+		        <div class="expandable"></div>
+
+		        <form action="{% url 'update_cart' product.slug %}" method="GET" class="form">
+		        	<input type="number" name="qty" min="1">
+		        	<input type="submit" value="Add to Cart">
+		        </form> -->
+
+		        <!-- <p><a href="{{ product.get_absolute_url }}" class="btn btn-primary" role="button">View</a> <a href="{% url 'update_cart' product.slug %}" class="btn btn-default" role="button">Add to Cart</a></p> -->
+		      <!-- </div> -->
+		</div>
+  </div>
+  <div class="col-md-6">
+  <div class="col-sm-4 pull-right">
+  	<form action="{% url 'update_cart' product.slug %}" method="POST" class="form">
+  	{% csrf_token %}
+		<input type="number" name="qty" min="1" value="1">
+
+		{% if product.variation_set.all %}
+		{% if product.variation_set.colors %}
+		<select class="form-control" name="color">
+			{% for item in product.variation_set.colors %}
+			<option value="{{ item.title | lower }}">{{ item.title|capfirst }}</option>
+			{% endfor %}
+		</select>
+		{% endif %}
+		{% if product.variation_set.sizes %}
+		<select class="form-control" name="size">
+			{% for item in product.variation_set.sizes %}
+			<option value="{{ item.title | lower }}">{{ item.title|capfirst }}</option>
+			{% endfor %}
+		</select>
+		{% endif %}
+
+		{% endif %}
+		
+		
+		<input type="submit" value="Add to Cart">
+	</form>
+  </div>
+  	<h3>{{ product.title }}</h3>
+  	<h4> $ {{ product.sale_price }}</h4>
+  	<hr>
+  	<p>{{ product.description }}</p>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+{% endblock %}
