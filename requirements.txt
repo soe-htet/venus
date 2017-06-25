@@ -9,3 +9,4 @@ requests==2.18.1
 South==1.0.2
 stripe==1.19.0
 urllib3==1.21.1
+gunicorn==19.3.0
