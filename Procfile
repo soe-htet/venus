@@ -1,1 +1,1 @@
-web: gunicon mmshop.wsgi
+web: gunicorn mmshop.wsgi
