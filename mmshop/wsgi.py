@@ -16,7 +16,7 @@ application = get_wsgi_application()
 
 
 try:
-	from d_static import Cling
+	from dj_static import Cling
 
 	application = Cling(get_wsgi_application())
 except:
