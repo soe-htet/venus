@@ -27,9 +27,9 @@ class Order(models.Model):
 	cart = models.ForeignKey(Cart)
 	status = models.CharField(max_length=200, choices=STATUS_CHOICES, default="Started")
 
-	sub_total = models.DecimalField(default=10.00, decimal_places=2, max_digits=2000)
-	tax_total = models.DecimalField(default=10.00, decimal_places=2, max_digits=2000)
-	final_total = models.DecimalField(default=10.00, decimal_places=2, max_digits=2000)
+	sub_total = models.DecimalField(default=10.00, decimal_places=2, max_digits=1000)
+	tax_total = models.DecimalField(default=10.00, decimal_places=2, max_digits=1000)
+	final_total = models.DecimalField(default=10.00, decimal_places=2, max_digits=1000)
 	timestamp = models.DateTimeField(auto_now_add=True,auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False,auto_now=True)
 
