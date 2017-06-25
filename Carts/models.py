@@ -20,7 +20,7 @@ class CartItem(models.Model):
 	cart = models.ForeignKey(Cart, null=True, blank=True)
 	product = models.ForeignKey(Product)
 	quantity = models.IntegerField(default=1)
-	line_total = models.FloatField(default=10.00, decimal_places=2)
+	line_total = models.FloatField(default=10.00)
 	variations = models.ManyToManyField(Variation, null=True,blank=True)
 	notes = models.TextField(null=True, blank=True, default='')
 	timestamp = models.DateTimeField(auto_now_add=True,auto_now=False)
