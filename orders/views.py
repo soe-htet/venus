@@ -17,6 +17,14 @@ from django.contrib import messages
 from .utils import id_generator
 
 
+from django.conf import settings
+
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
+
+
+
 def user_orders(request):
 
 	orders = Order.objects.filter(user=request.user)
@@ -53,6 +61,23 @@ def checkout(request):
 	message = render_to_string("orders/order.txt", context)
 	subject = "Order Detail"
 	send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [request.user.email])
+
+
+	try:
+		sg = sendgrid.SendGridAPIClient(apikey=os.environ.get(settings.SEND_GRID_API))
+		from_email = Email("venusleague@gmail.com")
+		to_email = Email(request.user.email)
+		subject = "Orders Detail: " + new_order.order_id
+		context = {
+			"order":new_order,
+		}
+		message = render_to_string("accounts/activation_message.txt", context)
+		content = Content("text/plain", message)
+		mail = Mail(from_email, subject, to_email, content)
+		response = sg.client.mail.send.post(request_body=mail.get())
+	except:
+		
+
 
 			
  	del request.session['cart_id']

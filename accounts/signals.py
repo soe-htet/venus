@@ -14,6 +14,8 @@ from .models import UserStripe, EmailConfirmed
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+
+
 # if we decide to change how we want to add the stripe id, this is where we set it for a user_logged_in
 # def get_or_create_stripe(sender, user, *args, **kwargs):
 # 	try:
