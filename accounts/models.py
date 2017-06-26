@@ -100,20 +100,23 @@ class EmailConfirmed(models.Model):
 
 
 	def sned_grid_email(self):
-		sg = sendgrid.SendGridAPIClient(apikey=os.environ.get(settings.SEND_GRID_API))
-		from_email = Email("venusleague@gmail.com")
-		to_email = Email(self.user.email)
-		subject = "Activation account form Venus"
-		activation_url = "%s%s" %(settings.SITE_URL, reverse("activation_view", args=[self.activation_key]))
-		context = {
-			"activation_key": self.activation_key,
-			"activation_url": activation_url,
-			"user": self.user.username,
-		}
-		message = render_to_string("accounts/activation_message.txt", context)
-		content = Content("text/plain", message)
-		mail = Mail(from_email, subject, to_email, content)
-		response = sg.client.mail.send.post(request_body=mail.get())
+		try:
+			sg = sendgrid.SendGridAPIClient(apikey=os.environ.get(settings.SEND_GRID_API))
+			from_email = Email("venusleague@gmail.com")
+			to_email = Email(self.user.email)
+			subject = "Activation account form Venus"
+			activation_url = "%s%s" %(settings.SITE_URL, reverse("activation_view", args=[self.activation_key]))
+			context = {
+				"activation_key": self.activation_key,
+				"activation_url": activation_url,
+				"user": self.user.username,
+			}
+			message = render_to_string("accounts/activation_message.txt", context)
+			content = Content("text/plain", message)
+			mail = Mail(from_email, subject, to_email, content)
+			response = sg.client.mail.send.post(request_body=mail.get())
+		except:
+			pass
 		
 
 	def email_user(self, subject, message, from_email=None, **kwargs):

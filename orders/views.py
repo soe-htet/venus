@@ -76,7 +76,7 @@ def checkout(request):
 		mail = Mail(from_email, subject, to_email, content)
 		response = sg.client.mail.send.post(request_body=mail.get())
 	except:
-		
+		pass
 
 
 			
@@ -88,7 +88,7 @@ def checkout(request):
 	request.session['cart_id'] = new_cart.id
 	request.session['items_total'] = new_cart.cartitem_set.count()
 
-	messages.warning(request, "ORder placed.")
+	messages.warning(request, "Order placed. We have sent order details via email.")
 	context = {'order':new_order}
 	template = 'orders/order_details.html'
 	return render(request,template,context)

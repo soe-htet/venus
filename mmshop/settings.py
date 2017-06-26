@@ -26,7 +26,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 
 DEFAULT_FROM_EMAIL = "venusleague@gmail.com"
 
@@ -41,11 +41,17 @@ DEFAULT_FROM_EMAIL = "venusleague@gmail.com"
 #     pass
 SEND_GRID_API = "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"
 
-EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
-EMAIL_HOST= 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+
+
+try:
+    EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+    EMAIL_HOST= 'smtp.sendgrid.net'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+except:
+    pass
+
 
 #SITE_URL = "http://127.0.0.1:8000"
 SITE_URL = "https://immense-brushlands-15195.herokuapp.com"
